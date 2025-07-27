@@ -1,0 +1,6 @@
+*.tfstate
+*.tfstate.*
+.terraform/
+import.tf
+backend.tf
+errored.tfstate
