@@ -1,3 +1,6 @@
+on:
+  workflow_dispatch:
+
 jobs:
   destroy:
     runs-on: ubuntu-latest
