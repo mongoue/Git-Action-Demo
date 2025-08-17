@@ -56,7 +56,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 }
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
-  location = "West Europe"
+  location = "West US"
 }
 
 resource "azurerm_storage_account" "example" {
