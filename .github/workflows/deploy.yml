@@ -3,6 +3,10 @@ name: Deploy azure code through terraform and github action
 on:
   pull_request:
 
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +24,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: terraform init --reconfigure
 
     - name: Terraform Validate
       id: validate
@@ -28,7 +32,32 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan
+      run: terraform plan -out=tfplan
 
-  
-      
+  apply:
+    if:
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - uses: azure/login@v2
+      with:
+       creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+
+    - name: install terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: wait time added
+      run: sleep 60
+
+    - name: Terraform Init
+      id: init
+      run: terraform init --reconfigure
+
+
+    - name: terraform apply
+      id: apply
+      run: terraform apply --auto-approve
