@@ -54,10 +54,6 @@ resource "azurerm_linux_virtual_machine" "example" {
     version   = "latest"
   }
 }
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
-  location = "West US"
-}
 
 resource "azurerm_storage_account" "example" {
   name                     = "storageaccountfortoday"
