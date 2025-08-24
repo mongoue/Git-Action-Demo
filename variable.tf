@@ -9,6 +9,7 @@ variable "rg" {
 
 
 
+
 variable "name" {
  default = "my-terraform-vm"
 }
