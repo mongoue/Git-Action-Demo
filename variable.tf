@@ -4,7 +4,7 @@ variable "subscription_id" {
 
 variable "rg" {
   description = "resource grp for azure vm"
-  default = "gitactionrg"
+  default = "RG-jenkins"
 }
 
 
